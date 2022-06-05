@@ -32,6 +32,22 @@ class Main {
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.add(panel);
 
+    fiveButton.getInputMap().put(KeyStroke.getKeyStroke("A"), "fivePressed");
+    fiveButton.getActionMap().put("fivePressed", new AbstractAction() {
+      public void actionPerformed(ActionEvent e){
+        frame.dispose();
+        new BirdleAlphabet("easy");
+      }
+    });
+
+    allButton.getInputMap().put(KeyStroke.getKeyStroke("B"), "allPressed");
+    allButton.getActionMap().put("allPressed", new AbstractAction() {
+      public void actionPerformed(ActionEvent e){
+        frame.dispose();
+        new BirdleAlphabet("hard");
+      }
+    });
+
     //Register a listener for the radio buttons.
     fiveButton.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
@@ -53,8 +69,8 @@ class Main {
 // make game end once all green
 // add message if not valid entry (red letters?)
 // keyboard - change color to match letter status
-// keyboard - make it enterable from computer keyboard
 // ID green/yellow right!!!!
+// When incorrect and press "delete", everything gets deleted- fix
 
 
 // FEATURES

@@ -33,6 +33,20 @@ public class BirdleDisplay{
     letterD = new Dimension(40,40);
     borderD = new Dimension(48,48);
     font = new Font("Courier", Font.BOLD, 15);
+
+    for (int c = 0; c < disp[0].length; c ++) {
+      for (int r = 0; r < disp.length; r ++ ) {
+        JTextField a2inset = new JTextField("");
+        a2inset.setEditable(false);
+        a2inset.setPreferredSize(letterD);
+        a2inset.setHorizontalAlignment(JTextField.CENTER);
+        a2inset.setFont(font);
+        a2inset.setBorder(null);
+        a2inset.setBackground(white);
+        a2inset.setForeground(black);
+        disp[r][c] = a2inset;
+      }
+    }
 	}	
 
   // returns a JPanel grid using the panels stored in JTextField[][] disp
@@ -52,29 +66,24 @@ public class BirdleDisplay{
   public void setDisp(char[][] guesses, char[][] parses) {
     for (int c = 0; c < disp[0].length; c ++) {
       for (int r = 0; r < disp.length; r ++ ) {
-        JTextField a2inset = new JTextField("" + guesses[r][c]);
-        if (guesses[r][c] == 0) {
-          a2inset = new JTextField("");
-        }
-        a2inset.setEditable(false);
-        a2inset.setPreferredSize(letterD);
-        a2inset.setHorizontalAlignment(JTextField.CENTER);
-        a2inset.setFont(font);
-        a2inset.setBorder(null);
-        if (parses[r][c] == 'G') {
-          a2inset.setBackground(green);
-          a2inset.setForeground(white);
-        } else if (parses[r][c] == 'Y') {
-          a2inset.setBackground(yellow);
-          a2inset.setForeground(white);
-        } else if (parses[r][c] == 'O') {
-          a2inset.setBackground(grey);
-          a2inset.setForeground(white);
+        if (guesses[r][c] != 0) {
+          disp[r][c].setText(guesses[r][c] + "");
         } else {
-          a2inset.setBackground(white);
-          a2inset.setForeground(black);
+          disp[r][c].setText("");
+        }
+        if (parses[r][c] == 'G') {
+          disp[r][c].setBackground(green);
+          disp[r][c].setForeground(white);
+        } else if (parses[r][c] == 'Y') {
+          disp[r][c].setBackground(yellow);
+          disp[r][c].setForeground(white);
+        } else if (parses[r][c] == 'O') {
+          disp[r][c].setBackground(grey);
+          disp[r][c].setForeground(white);
+        } else {
+          disp[r][c].setBackground(white);
+          disp[r][c].setForeground(black);
         }        
-        disp[r][c] = a2inset;
       }
     }
     //printArr(guesses);

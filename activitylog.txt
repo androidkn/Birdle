@@ -42,3 +42,9 @@ HOLY HECK IT WORKS WITH CHANGING THE WORD SIZE
 06/01/2022
 - Made a second list of passable 5 letter words; guesses can be from that list but not the chosen word, so that plurals of four letter birds can be guessed
 - started implementing radio buttons to choose between 5-letter-mode and hard mode
+
+06/05/2022
+- Radio buttons correctly work now in terms of calling the right Birdle frame up, but birdle isn't displaying... will fix that bug later
+- Spent like 4 hours making the keyboard also control the buttons, same as from the on-screen buttons (had to learn how to use InputMap and ActionMap)
+- Also fixed the way the display panel was rendered so that it wasn't deleting everything and readding it every time a button was clicked
+- 

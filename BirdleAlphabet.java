@@ -42,20 +42,78 @@ public class BirdleAlphabet{
         parses[r][c] = 'W';
       }
     }
-    
     display.setDisp(guesses, parses);
 
     frame = new JFrame("Birdle");
 		frame.setSize(600, 600);
     frame.setBackground(Color.white);
-    
+
     all = new JPanel();   
     alph = this.get2();
+    disp = display.display();
+    
+    all.add(disp);
+    all.add(alph);
+    frame.setContentPane(all);
+    frame.setVisible(true);
+    alph.requestFocus();
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);	
     editDisplay();
-
+    
+    // SET UP INPUT MAPS FOR KEYBOARD
+    InputMap map = all.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+    for (int i = 0; i < 26; i ++) {
+      char smallChar = (char)('a' + i);
+      char bigChar = (char)('A' + i); 
+      map.put(KeyStroke.getKeyStroke(smallChar), "pressed");
+      map.put(KeyStroke.getKeyStroke(bigChar), "pressed");
+    }
+    map.put(KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), "pressed");
+    map.put(KeyStroke.getKeyStroke(KeyEvent.VK_BACK_SPACE, 0), "pressed");
+    map.put(KeyStroke.getKeyStroke(KeyEvent.VK_DELETE, 0), "pressed");
+    all.getActionMap().put("pressed", new AbstractAction() {
+      public void actionPerformed(ActionEvent e){
+        //System.out.println("|||" + e.getActionCommand() + "|||");
+        // IF THE KEY PRESSED IS "ENTER:
+        if (e.getActionCommand().equals("\n")) {
+          System.out.println("\nguess is " + guess);
+          if (game.validGuess(guess)) {
+            parsedGuess = game.parseGuess(guess);
+            System.out.println(parsedGuess);
+            if (BirdleGame.isCorrect(parsedGuess)) {
+              correct = true;
+            }
+            for (int i = 0; i < parses[0].length; i ++) {
+              parses[onRow][i] = parsedGuess.charAt(i);
+            }
+            onRow ++;
+            guess = "";
+            editDisplay();
+          } else {
+            System.out.println("Please enter valid guess");
+            guess = "";
+          }
+        } else if (e.getActionCommand().equals("\b")) {
+          // IF THE KEY PRESSED IS "DELETE" OR "BACKSPACE":
+          if (guess.length() > 0) {
+            guess = guess.substring(0,guess.length()-1);
+          }
+          editDisplay();
+        } else {
+          // IF KEY PRESSED IS A LETTER:
+          String character = e.getActionCommand().toLowerCase();
+          //System.out.println("all saw " + character);
+          if (guess.length() < BirdleGame.getLetters()) {
+            guess += character;
+            editDisplay();
+            d = false;
+          }
+        }
+      }
+    });
+    
+    
     do {
       //System.out.println("A " + correct);
       if (!d && !correct) {
@@ -75,6 +133,7 @@ public class BirdleAlphabet{
     keyboard.setLayout(new BoxLayout(keyboard, BoxLayout.Y_AXIS));
     Dimension letSpacing = new Dimension(10, 10);
 
+    // ENTER BUTTON
     JButton enter = new JButton("->");
     enter.setPreferredSize(new Dimension(50, 50));
     enter.addActionListener(new ActionListener(){
@@ -99,6 +158,7 @@ public class BirdleAlphabet{
       }
     });
 
+    // DELETE BUTTON
     JButton delete = new JButton("<<");
     delete.setPreferredSize(new Dimension(50, 50));
     delete.addActionListener(new ActionListener(){
@@ -109,7 +169,8 @@ public class BirdleAlphabet{
         editDisplay();
       }
     });	
-    
+
+    // LETTER BUTTONS
     for (int i = 0; i < KEYBOARD.length; i ++) {
       KEYBOARD[i].setLayout(new BoxLayout(KEYBOARD[i], BoxLayout.X_AXIS));
       if (i == 2) {
@@ -121,6 +182,17 @@ public class BirdleAlphabet{
         String letter = LETTY[i].substring(v, v+1);
         JButton btn = new JButton(letter);
         btn.setPreferredSize(new Dimension(50, 50));
+        /*btn.getInputMap().put(KeyStroke.getKeyStroke(letter.toUpperCase()), "pressed");
+        btn.getActionMap().put("pressed", new AbstractAction() {
+          public void actionPerformed(ActionEvent e){
+            if (guess.length() < BirdleGame.getLetters()) {
+              //System.out.print(let);
+              guess += letter;
+              editDisplay();
+              d = false;
+            }
+          }
+        });*/
         btn.addActionListener(new ActionListener(){
     			public void actionPerformed(ActionEvent e){
             if (guess.length() < BirdleGame.getLetters()) {
@@ -153,13 +225,10 @@ public class BirdleAlphabet{
     if (BirdleGame.isCorrect(parsedGuess)) {
       correct = true;
     }
+    BirdleDisplay.printArr(guesses);
     display.setDisp(guesses, parses);
-    disp = display.display();
-    frame.getContentPane().removeAll();
-    frame.invalidate();
-    frame.add(disp);
-    frame.add(alph);
-    frame.setContentPane(all);
+    disp.repaint();
+    disp.revalidate();
     System.out.println("disp " + correct);
   }
 }
