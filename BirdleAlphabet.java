@@ -92,6 +92,7 @@ public class BirdleAlphabet{
             }
             onRow ++;
             guess = "";
+            setDisp();
             editDisplay();
           } else {
             System.out.println("Please enter valid guess");
@@ -153,6 +154,7 @@ public class BirdleAlphabet{
           }
           onRow ++;
           guess = "";
+          setDisp();
           editDisplay();
         } else {
           System.out.println("Please enter valid guess");
@@ -241,7 +243,6 @@ public class BirdleAlphabet{
     }
     //BirdleDisplay.printArr(guesses);
     display.setDisp(guesses, parses);
-    this.setDisp();
     alph.repaint();
     alph.revalidate();
     disp.repaint();

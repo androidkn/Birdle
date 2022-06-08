@@ -59,3 +59,6 @@ Out of class (1 hr) - finishing up the code so that it runs perfectly from the c
 06/06/2022
 - IDs yellow and green correctly now - 1hr
 - Manually edit all bird list so that it includes plurals, took out hard birds- a bit less than an hour
+
+06/08/2022
+- 1.5 to 2 hrs making keyboard letter color change so that it reflects letter correctness

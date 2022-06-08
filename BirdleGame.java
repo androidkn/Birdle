@@ -151,15 +151,19 @@ public class BirdleGame {
         correct = false;
       }
       //System.out.println((int)word.charAt(i) - 96);
-      char current = letterData[(int)word.charAt(i) - 97];
-      if (current == 'Y') {
-        if (result[i] == 'G') {
-          letterData[(int)word.charAt(i) - 97] = result[i];
+      char current = letterData[(int)guess.charAt(i) - 97];
+      if (result[i] == 'G') {
+        letterData[(int)guess.charAt(i) - 97] = result[i];
+      } else if (result[i] == 'Y') {
+        if (current != 'G') {
+          letterData[(int)guess.charAt(i) - 97] = result[i];
         }
       } else if (result[i] == 'O') {
-        letterData[(int)word.charAt(i) - 97] = result[i];
+        if (current != 'G' && current != 'Y') {
+          letterData[(int)guess.charAt(i) - 97] = result[i];
+        }
       }
-      letterData[(int)word.charAt(i) - 97] = result[i];
+      //letterData[(int)guess.charAt(i) - 97] = result[i];
     }
     //System.out.println("parsedguess returns "  + resultString);
     for (int i = 0; i < letterData.length; i ++) {  System.out.println(i + " " + letterData[i]); }

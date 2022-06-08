@@ -70,7 +70,6 @@ class Main {
 
 // make game end once all green
 // add message if not valid entry (red letters?)
-// keyboard - change color to match letter status
 // When incorrect and press "delete", everything gets deleted- fix
 // tell jframe to stop being a bitch about screen resizing
 
