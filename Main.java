@@ -4,10 +4,13 @@ import java.awt.event.*;
 
 class Main {
   public static void main(String[] args) {
+    
     //BirdleGame game = new BirdleGame("easy");
     //game.guessBird();
     new BirdleAlphabet("hard");
     //buttons();
+
+    
   }
 
   public static void buttons() {
@@ -26,7 +29,7 @@ class Main {
 
     JFrame frame = new JFrame("Make a choice!");
     JPanel panel = new JPanel();
-		frame.setSize(600, 600);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     frame.setBackground(Color.white);
     frame.setVisible(true);
     panel.add(fiveButton);

@@ -48,7 +48,7 @@ public class BirdleAlphabet{
     display.setDisp(guesses, parses);
 
     frame = new JFrame("Birdle");
-		frame.setSize(600, 600);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     frame.setBackground(Color.white);
 
     all = new JPanel();   
