@@ -89,6 +89,22 @@ public class BirdleDisplay{
     //printArr(guesses);
   }
 
+  public Color getGreen() {
+    return green;
+  }
+  public Color getYellow() {
+    return yellow;
+  }
+  public Color getGrey() {
+    return grey;
+  }
+  public Color getWhite() {
+    return white;
+  }
+  public Color getBlack() {
+    return black;
+  }
+
   // Tester method to print to command line
   public static void printArr(char[][] arr) {
     for (int r = 0; r < arr.length; r ++) {
@@ -99,6 +115,7 @@ public class BirdleDisplay{
     }
   }
 
+  
   
 
 }

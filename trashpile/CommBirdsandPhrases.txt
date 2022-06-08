@@ -99,6 +99,7 @@ murre
 nene
 nightingale
 nightjar
+nighthawk
 nuthatch
 oriole
 osprey

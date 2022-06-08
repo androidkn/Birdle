@@ -17,6 +17,7 @@ public class BirdleGame {
   private boolean correct;
   private static int GUESSES;
   private static int LETTERS;
+  private char[] letterData;
 
   //CONSTRUCTORS
   public BirdleGame(String mode) {
@@ -27,8 +28,8 @@ public class BirdleGame {
     String pathname = "FiveLetterBirds.txt";
     String guessPathname = "FiveLetterGuesses.txt";
     if (mode.equals("hard")) {
-      pathname = "CommBirdsandPhrases.txt";
-      guessPathname = pathname;
+      pathname = "AllBirdList.txt";
+      guessPathname = "AllGuessList.txt";
     } 
     System.out.println(pathname);
     readBirds(pathname, birds);
@@ -38,16 +39,24 @@ public class BirdleGame {
     System.out.println(word.length());
     GUESSES = word.length() + 1;
     LETTERS = word.length();
+    letterData = new char[26];
+    for (int i = 0; i < letterData.length; i ++) {
+      letterData[i] = '-';
+    }
   }
 
   public void readBirds(String pathname, ArrayList<String> destination)
   {
     File file = new File(pathname);
+    String outputpathname = "lengthlist.txt";
+    File fileOut= new File(outputpathname);
+    PrintWriter output = null;
     try {
       input = new Scanner(file);
+      output = new PrintWriter(fileOut);
     } catch (FileNotFoundException ex) {
-      System.out.println("*** Cannot open " + pathname + " ***");
-      System.exit(1);  // quit the program
+      System.out.println("*** Cannot open " + pathname + " or " + outputpathname + " ***");
+      System.exit(1);
     } 
     destination.add("0");
     destination.add("1");
@@ -67,6 +76,10 @@ public class BirdleGame {
     }
     destination.remove("0");
     destination.remove("1");
+    for (String s : destination) {
+      //output.println(s);
+    }
+    output.close();
   }
 
   private String chooseBird() {
@@ -78,39 +91,79 @@ public class BirdleGame {
     return this.word;
   }
 
-  private void guessBird() {
-    String guess = "";
-    input = new Scanner(System.in);
-    do {
-      System.out.println("\nenter guess:");
-      guess = input.next();
-      //cheat code
+  public void guessBird() {
+    String parsed = "XXXXX";
+    while (!parsed.equals("GGGGG")) {
+      String guess = "";
+      input = new Scanner(System.in);
+      do {
+        System.out.println("\nenter guess: ");
+        guess = input.next();
+        //cheat code
+      } while (guess.length() != word.length() || !validGuess(guess));
+      parsed = parseGuess(guess);
       if (guess.equals(CHEAT)) {
         System.out.println("Cheat code activated! Word: " + word);
+      } else {
+        System.out.println(parsed);
       }
-    } while (guess.length() != word.length() || !validGuess(guess));
+    }
+    System.out.println("You guessed the bird!");
   }
 
   public String parseGuess(String guess) {
+    //System.out.println("guess is " + guess);
     char[] result = new char[word.length()];
+    char[] tempWord = new char[word.length()];
     for (int i = 0; i < word.length(); i ++) {
-      if (word.substring(i,i+1).equalsIgnoreCase(guess.substring(i,i+1))) {
+      tempWord[i] = Character.toLowerCase(word.charAt(i));
+    }
+    for (int i = 0; i < word.length(); i ++) {
+      result[i] = 'O';
+    }
+    //for (char i : tempWord) { System.out.print(i + " "); }
+    for (int i = 0; i < tempWord.length; i ++) {
+      if (tempWord[i] == Character.toLowerCase(guess.charAt(i))) {
         result[i] = 'G';
-      } else if (word.contains(guess.substring(i, i + 1))) {
-        result[i] = 'Y';
-      } else {
-        result[i] = 'O';
+        tempWord[i] = '.';
       }
     }
-    String result2 = "";
+    for (char i : result) { System.out.print(i + " "); }
+    for (char i : tempWord) { System.out.print(i + " "); }
+    for (int i = 0; i < tempWord.length; i ++) {
+      if (result[i] != 'G') {
+        for (int v = 0; v < tempWord.length; v ++) {
+          if (tempWord[v] == guess.charAt(i)) {
+            result[i] = 'Y';
+            tempWord[v] = '.';
+          }
+        }
+      }
+    }
+    //System.out.println();
+    //for (char i : result) { System.out.print(i + " "); }
+    //for (char i : tempWord) { System.out.print(i + " "); }
+    String resultString = "";
     correct = true;
-    for (char i : result) {
-      result2 += i;
-      if (i != 'G') {
+    for (int i = 0; i < result.length; i ++) {
+      resultString += result[i];
+      if (result[i] != 'G') {
         correct = false;
       }
+      //System.out.println((int)word.charAt(i) - 96);
+      char current = letterData[(int)word.charAt(i) - 97];
+      if (current == 'Y') {
+        if (result[i] == 'G') {
+          letterData[(int)word.charAt(i) - 97] = result[i];
+        }
+      } else if (result[i] == 'O') {
+        letterData[(int)word.charAt(i) - 97] = result[i];
+      }
+      letterData[(int)word.charAt(i) - 97] = result[i];
     }
-    return result2;
+    //System.out.println("parsedguess returns "  + resultString);
+    for (int i = 0; i < letterData.length; i ++) {  System.out.println(i + " " + letterData[i]); }
+    return resultString;
   }
 
   public boolean validGuess(String guess) {
@@ -118,7 +171,7 @@ public class BirdleGame {
     if (guess.equals(CHEAT)) {
       System.out.println("Cheat code activated! Word: " + word);
     }
-    if (!guessList.contains(guess)) {
+    if (!guessList.contains(guess.toLowerCase())) {
       System.out.println("not in bird list");
       valid = false;
     }
@@ -162,6 +215,10 @@ public class BirdleGame {
     return LETTERS;
   }
 
+  public char[] getLetterData () {
+    return letterData;
+  }
+
   public static boolean isCorrect(String parsedGuess) {
     for (int i = 0; i < parsedGuess.length(); i ++) {
       if (parsedGuess.charAt(i) != 'G') {
@@ -170,4 +227,5 @@ public class BirdleGame {
     }
     return true;
   }
+
 }

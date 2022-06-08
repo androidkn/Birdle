@@ -1,8 +1,11 @@
 03/23/2022
-Developed a rough plan and submitted proposal. Afterward, spent 1 hr at home uploading a bird list and writing code to sort by length. Spent some time sorting through list for most common birds.
+- Developed a rough plan and submitted proposal
+- Spent 1 hr at home uploading a bird list and writing code to sort by length
+- Spent some time sorting through list for most common birds.
 
 03/24/2022
-30 minutes coding to choose a bird from the list, plus 30 minutes coding a CLI for guessBird();
+- 30 minutes coding to choose a bird from the list,
+- 30 minutes coding a CLI for guessBird()
 
 03/29/2022
 In class - spent 1 hr learning about GUI
@@ -10,7 +13,8 @@ At study - 1 hr testing and adding finer details to BirdleGame - validGuess(), c
 At home - Spent 1 hr at home making the BirdleAlphabet class so that there's a QWERTY display of spaced-out letter buttons
 
 04/10/2022
-At home - spent more than 1hr reworking the GUI, Alphabet, and Game files - now the Alphabet can pass information to the Game and back
+- At home - spent more than 1hr reworking the GUI, Alphabet, and Game files
+- Now the Alphabet can pass information to the Game and back
 
 04/13/2022
 In class - spent the hour working on the Display class, adding in buttons
@@ -22,29 +26,36 @@ In class - played around with BirdleDisplay, making it so that a grid was displa
 In class (1hr) and out of class (1hr)
 - Finished BirdleDisplay so that the GridLayout worked
 - Edited BirdleAlphabet so it has a private BirdleDisplay that stores information
-- Made it so the BirdleDisplay takes in information from BirdleAlphabet about the word and whether it was correct - but not yet able to display that information. 
+- Made it so the BirdleDisplay takes in information from BirdleAlphabet about the word and whether it was correct
+- but not yet able to display that information. 
 - Lots of progress today
 
 05/12/2022
-In class (1 hr) - editing BirdleDisplay display function to update the game whenever a guess is made, not complete yet but getting there - need to integrate BirdleGUI to have a JPanel that responds to change from the BirdleDisplay class.
+- In class (1 hr) - editing BirdleDisplay display function
+- Updates the game whenever a guess is made, not complete yet but getting there
+- Still need to integrate BirdleGUI to have a JPanel that responds to change from the BirdleDisplay class.
 
 05/13/2022
-In class (1 hr) - removing BirdleGUI so that BirdleAlphabet carried out its functions, adding spacing in the BirdleDisplay grid, fixing some bugs with the char[][] arrays
-Out of class (1 hr) - finishing up the code so that it runs perfectly from the command line, now I need to figure out how to edit a JPanel that's already added to the frame, and then it would be a working demo
-GOT A WORKING DEMO
+- In class (1 hr) - removing BirdleGUI so that BirdleAlphabet carried out its functions
+- Adding spacing in the BirdleDisplay grid, fixing some bugs with the char[][] arrays
+Out of class (1 hr) - finishing up the code so that it runs perfectly from the command line
+- Now I need to figure out how to edit a JPanel that's already added to the frame, and then it would be a working demo
+- GOT A WORKING DEMO
 
 05/23/2022
-1 hr in class plus 1 hour outside of class reworking BirdleAlphabet get() method (which makes the keyboard) to be more efficient
-HOLY HECK IT WORKS WITH CHANGING THE WORD SIZE
-
-05/25/2022
+- 1 hr in class plus 1 hour outside of class reworking BirdleAlphabet get() method to be more efficient
+- HOLY HECK IT WORKS WITH CHANGING THE WORD SIZE
 
 06/01/2022
-- Made a second list of passable 5 letter words; guesses can be from that list but not the chosen word, so that plurals of four letter birds can be guessed
+- Made a second list of passable 5 letter words; guesses can be from that list but not the chosen word
+- Plurals of four letter birds can be guessed
 - started implementing radio buttons to choose between 5-letter-mode and hard mode
 
 06/05/2022
 - Radio buttons correctly work now in terms of calling the right Birdle frame up, but birdle isn't displaying... will fix that bug later
 - Spent like 4 hours making the keyboard also control the buttons, same as from the on-screen buttons (had to learn how to use InputMap and ActionMap)
 - Also fixed the way the display panel was rendered so that it wasn't deleting everything and readding it every time a button was clicked
-- 
+
+06/06/2022
+- IDs yellow and green correctly now - 1hr
+- Manually edit all bird list so that it includes plurals, took out hard birds- a bit less than an hour

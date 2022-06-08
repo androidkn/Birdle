@@ -4,7 +4,9 @@ import java.awt.event.*;
 
 class Main {
   public static void main(String[] args) {
-    new BirdleAlphabet("easy");
+    //BirdleGame game = new BirdleGame("easy");
+    //game.guessBird();
+    new BirdleAlphabet("hard");
     //buttons();
   }
 
@@ -69,15 +71,11 @@ class Main {
 // make game end once all green
 // add message if not valid entry (red letters?)
 // keyboard - change color to match letter status
-// ID green/yellow right!!!!
 // When incorrect and press "delete", everything gets deleted- fix
+// tell jframe to stop being a bitch about screen resizing
 
 
 // FEATURES
-
-// changeable number of letters in chosen bird
-   // how to decide # guesses?
-   // add one guess per extra two letters?
 
 // "easy" "medium" "hard" modes
    // changes # letters in bird chosen

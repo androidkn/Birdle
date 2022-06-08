@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*; 
+import java.util.ArrayList;
 
 // Main class that does the work
 
@@ -9,6 +10,7 @@ public class BirdleAlphabet{
   // Attributes
   private final String[] LETTY = {"qwertyuiop", "asdfghjkl", "zxcvbnm"};
   private final JPanel[] KEYBOARD = {new JPanel(), new JPanel(), new JPanel()};
+  ArrayList<JButton> buttons;
   private String guess;
   private String parsedGuess;
   private BirdleGame game;
@@ -35,6 +37,7 @@ public class BirdleAlphabet{
     guesses = new char[BirdleGame.getGuesses()][BirdleGame.getLetters()];
     parses = new char[BirdleGame.getGuesses()][BirdleGame.getLetters()];
     parsedGuess = "OOOOO";
+    buttons = new ArrayList<JButton>();
     correct = false;
     for (int r = 0; r < guesses.length; r ++) {
       for (int c = 0; c < guesses[0].length; c ++) {
@@ -182,17 +185,6 @@ public class BirdleAlphabet{
         String letter = LETTY[i].substring(v, v+1);
         JButton btn = new JButton(letter);
         btn.setPreferredSize(new Dimension(50, 50));
-        /*btn.getInputMap().put(KeyStroke.getKeyStroke(letter.toUpperCase()), "pressed");
-        btn.getActionMap().put("pressed", new AbstractAction() {
-          public void actionPerformed(ActionEvent e){
-            if (guess.length() < BirdleGame.getLetters()) {
-              //System.out.print(let);
-              guess += letter;
-              editDisplay();
-              d = false;
-            }
-          }
-        });*/
         btn.addActionListener(new ActionListener(){
     			public void actionPerformed(ActionEvent e){
             if (guess.length() < BirdleGame.getLetters()) {
@@ -203,6 +195,7 @@ public class BirdleAlphabet{
             }
     			}
     		});	
+        buttons.add(btn);
         KEYBOARD[i].add(btn);
         KEYBOARD[i].add(Box.createRigidArea(letSpacing));
         if (i == 2) {
@@ -212,6 +205,27 @@ public class BirdleAlphabet{
       keyboard.add(KEYBOARD[i]);
     }
     return keyboard;
+  }
+
+  public void setDisp() {
+    for (JButton c : buttons) {
+      //System.out.print(c.getText() + " " + ((int)c.getText().charAt(0) - 97) + "    ");
+      char targetColor = game.getLetterData()[(int)c.getText().charAt(0) - 97];
+      if (targetColor == 'G') {
+        c.setBackground(display.getGreen());
+        c.setForeground(display.getWhite());
+      } else if (targetColor == 'Y') {
+        c.setBackground(display.getYellow());
+        c.setForeground(display.getWhite());
+      } else if (targetColor == 'O') {
+        c.setBackground(display.getGrey());
+        c.setForeground(display.getWhite());
+      } else {
+        c.setBackground(display.getWhite());
+        c.setForeground(display.getBlack());
+      }
+      System.out.println(c.getText() + " " + targetColor);
+    }
   }
 
   public void editDisplay() {
@@ -225,10 +239,13 @@ public class BirdleAlphabet{
     if (BirdleGame.isCorrect(parsedGuess)) {
       correct = true;
     }
-    BirdleDisplay.printArr(guesses);
+    //BirdleDisplay.printArr(guesses);
     display.setDisp(guesses, parses);
+    this.setDisp();
+    alph.repaint();
+    alph.revalidate();
     disp.repaint();
     disp.revalidate();
-    System.out.println("disp " + correct);
+    //System.out.println("disp " + correct);
   }
 }
