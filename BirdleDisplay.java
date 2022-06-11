@@ -100,6 +100,9 @@ public class BirdleDisplay{
   public Color getBlack() {
     return black;
   }
+  public Font getFont() {
+    return font;
+  }
 
   // Tester method to print to command line
   public static void printArr(char[][] arr) {

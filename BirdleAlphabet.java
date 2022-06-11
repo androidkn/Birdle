@@ -23,6 +23,7 @@ public class BirdleAlphabet{
   private JPanel alph;
   private JPanel all;
   private JFrame frame;
+  private JTextField reveal;
 
   private boolean d;
   private boolean correct;
@@ -51,19 +52,30 @@ public class BirdleAlphabet{
 		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     frame.setSize(600,600);
     frame.setBackground(Color.white);
-
-    all = new JPanel();   
-    alph = this.get2();
-    disp = display.display();
     
+    alph = this.get2();
+    alph.setMaximumSize(alph.getPreferredSize());
+    disp = display.display();
+    disp.setMaximumSize(disp.getPreferredSize());
+
+    reveal = new JTextField("The word was: " + game.getWord().toUpperCase());
+    reveal.setEditable(false);
+    reveal.setVisible(false);
+    reveal.setFont(display.getFont());
+    reveal.setMaximumSize(new Dimension(500,40));
+    reveal.setHorizontalAlignment(JTextField.CENTER);
+    reveal.setBorder(null);
+    
+    all = new JPanel(); 
+    all.setLayout(new BoxLayout(all, BoxLayout.PAGE_AXIS));
     all.add(disp);
+    all.add(reveal);
     all.add(alph);
     frame.setContentPane(all);
     frame.setVisible(true);
     alph.requestFocus();
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
-    editDisplay();
     
     // SET UP INPUT MAPS FOR KEYBOARD
     InputMap map = all.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -152,7 +164,6 @@ public class BirdleAlphabet{
 
   private void setDisp() {
     for (JButton c : buttons) {
-      //System.out.print(c.getText() + " " + ((int)c.getText().charAt(0) - 97) + "    ");
       char targetColor = game.getLetterData()[(int)c.getText().charAt(0) - 97];
       if (targetColor == 'G') {
         c.setBackground(display.getGreen());
@@ -167,7 +178,6 @@ public class BirdleAlphabet{
         c.setBackground(display.getWhite());
         c.setForeground(display.getBlack());
       }
-      //System.out.println(c.getText() + " " + targetColor);
     }
   }
 
@@ -186,6 +196,9 @@ public class BirdleAlphabet{
       editDisplay();
       onRow ++;
       guess = "";
+      if (onRow == guesses.length && !correct) {
+        fail();
+      }
     } else {
       System.out.println("Please enter valid guess");
     }
@@ -200,7 +213,6 @@ public class BirdleAlphabet{
 
   private void letterButton(String letter) {
     if (guess.length() < BirdleGame.getLetters() && !correct) {
-      //System.out.print(let);
       guess += letter;
       editDisplay();
       d = false;
@@ -209,25 +221,14 @@ public class BirdleAlphabet{
 
   public void editDisplay() {
     for (int c = 0; c < guesses[0].length; c ++) {
-      if (c < guess.length()) {
-        if (onRow >= guesses.length) {
-          guesses[guesses.length - 1][c] = guess.charAt(c);
-          //System.out.println("a");
-        } else {
+      if (onRow < guesses.length) {
+        if (c < guess.length()) {
           guesses[onRow][c] = guess.charAt(c);
-          //System.out.println("b");
-        }
-      } else {
-        if (onRow >= guesses.length) {
-          guesses[guesses.length - 1][c] = 0;
-          //System.out.println("c");
         } else {
           guesses[onRow][c] = 0;
-          //System.out.println("d");
         }
       }
     }
-    //System.out.println();
     if (BirdleGame.isCorrect(parsedGuess)) {
       correct = true;
     }
@@ -238,5 +239,10 @@ public class BirdleAlphabet{
     disp.repaint();
     disp.revalidate();
     System.out.println("disp " + correct);
+  }
+
+  public void fail() {
+    System.out.println("failed");
+    reveal.setVisible(true);
   }
 }
