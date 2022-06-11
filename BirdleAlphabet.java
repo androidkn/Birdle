@@ -47,7 +47,7 @@ public class BirdleAlphabet{
     }
     display.setDisp(guesses, parses);
 
-    frame = new JFrame("Birdle");
+    frame = new JFrame("Birdle " + mode);
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
     frame.setBackground(Color.white);
 
@@ -78,41 +78,16 @@ public class BirdleAlphabet{
     all.getActionMap().put("pressed", new AbstractAction() {
       public void actionPerformed(ActionEvent e){
         //System.out.println("|||" + e.getActionCommand() + "|||");
-        // IF THE KEY PRESSED IS "ENTER:
         if (e.getActionCommand().equals("\n")) {
-          System.out.println("\nguess is " + guess);
-          if (game.validGuess(guess)) {
-            parsedGuess = game.parseGuess(guess);
-            System.out.println(parsedGuess);
-            if (BirdleGame.isCorrect(parsedGuess)) {
-              correct = true;
-            }
-            for (int i = 0; i < parses[0].length; i ++) {
-              parses[onRow][i] = parsedGuess.charAt(i);
-            }
-            onRow ++;
-            guess = "";
-            setDisp();
-            editDisplay();
-          } else {
-            System.out.println("Please enter valid guess");
-            guess = "";
-          }
+          // IF THE KEY PRESSED IS "ENTER:
+          enterButton();
         } else if (e.getActionCommand().equals("\b")) {
           // IF THE KEY PRESSED IS "DELETE" OR "BACKSPACE":
-          if (guess.length() > 0) {
-            guess = guess.substring(0,guess.length()-1);
-          }
-          editDisplay();
+          deleteButton();
         } else {
           // IF KEY PRESSED IS A LETTER:
           String character = e.getActionCommand().toLowerCase();
-          //System.out.println("all saw " + character);
-          if (guess.length() < BirdleGame.getLetters()) {
-            guess += character;
-            editDisplay();
-            d = false;
-          }
+          letterButton(character);
         }
       }
     });
@@ -142,24 +117,7 @@ public class BirdleAlphabet{
     enter.setPreferredSize(new Dimension(50, 50));
     enter.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
-        System.out.println("\nguess is " + guess);
-        if (game.validGuess(guess)) {
-          parsedGuess = game.parseGuess(guess);
-          System.out.println(parsedGuess);
-          if (BirdleGame.isCorrect(parsedGuess)) {
-            correct = true;
-          }
-          for (int i = 0; i < parses[0].length; i ++) {
-            parses[onRow][i] = parsedGuess.charAt(i);
-          }
-          onRow ++;
-          guess = "";
-          setDisp();
-          editDisplay();
-        } else {
-          System.out.println("Please enter valid guess");
-          guess = "";
-        }
+        enterButton();
       }
     });
 
@@ -168,10 +126,7 @@ public class BirdleAlphabet{
     delete.setPreferredSize(new Dimension(50, 50));
     delete.addActionListener(new ActionListener(){
       public void actionPerformed(ActionEvent e){
-        if (guess.length() > 0) {
-          guess = guess.substring(0,guess.length()-1);
-        }
-        editDisplay();
+        deleteButton();
       }
     });	
 
@@ -187,14 +142,11 @@ public class BirdleAlphabet{
         String letter = LETTY[i].substring(v, v+1);
         JButton btn = new JButton(letter);
         btn.setPreferredSize(new Dimension(50, 50));
+        btn.setBackground(display.getWhite());
+        btn.setForeground(display.getBlack());
         btn.addActionListener(new ActionListener(){
     			public void actionPerformed(ActionEvent e){
-            if (guess.length() < BirdleGame.getLetters()) {
-              //System.out.print(let);
-              guess += letter;
-              editDisplay();
-              d = false;
-            }
+            letterButton(letter);
     			}
     		});	
         buttons.add(btn);
@@ -209,7 +161,7 @@ public class BirdleAlphabet{
     return keyboard;
   }
 
-  public void setDisp() {
+  private void setDisp() {
     for (JButton c : buttons) {
       //System.out.print(c.getText() + " " + ((int)c.getText().charAt(0) - 97) + "    ");
       char targetColor = game.getLetterData()[(int)c.getText().charAt(0) - 97];
@@ -226,18 +178,67 @@ public class BirdleAlphabet{
         c.setBackground(display.getWhite());
         c.setForeground(display.getBlack());
       }
-      System.out.println(c.getText() + " " + targetColor);
+      //System.out.println(c.getText() + " " + targetColor);
+    }
+  }
+
+  private void enterButton() {
+    System.out.println("\nguess is " + guess);
+    if (game.validGuess(guess)) {
+      parsedGuess = game.parseGuess(guess);
+      System.out.println(parsedGuess);
+      if (BirdleGame.isCorrect(parsedGuess)) {
+        correct = true;
+      }
+      for (int i = 0; i < parses[0].length; i ++) {
+        parses[onRow][i] = parsedGuess.charAt(i);
+      }
+      setDisp();
+      editDisplay();
+      onRow ++;
+      guess = "";
+    } else {
+      System.out.println("Please enter valid guess");
+    }
+  }
+
+  private void deleteButton() {
+    if (guess.length() > 0) {
+      guess = guess.substring(0,guess.length()-1);
+    }
+    editDisplay();
+  }
+
+  private void letterButton(String letter) {
+    if (guess.length() < BirdleGame.getLetters()) {
+      //System.out.print(let);
+      guess += letter;
+      editDisplay();
+      d = false;
     }
   }
 
   public void editDisplay() {
     for (int c = 0; c < guesses[0].length; c ++) {
       if (c < guess.length()) {
-        guesses[onRow][c] = guess.charAt(c);
+        if (onRow >= guesses.length) {
+          guesses[guesses.length - 1][c] = guess.charAt(c);
+          //System.out.println("a");
+        } else {
+          guesses[onRow][c] = guess.charAt(c);
+          //System.out.println("b");
+        }
       } else {
-        guesses[onRow][c] = 0;
+        if (onRow >= guesses.length) {
+          guesses[guesses.length - 1][c] = 0;
+          //System.out.println("c");
+        } else {
+          guesses[onRow][c] = 0;
+          //System.out.println("d");
+        }
       }
     }
+    //System.out.println();
     if (BirdleGame.isCorrect(parsedGuess)) {
       correct = true;
     }

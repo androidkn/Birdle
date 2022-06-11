@@ -1,0 +1,66 @@
+  // CLASS ATTRIBUTES (GLOBAL VARS)
+  private static JFrame frame;
+  private static JPanel panel;
+
+    // INSIDE VOID MAIN (STRING ARGS) FUNCTION
+    frame = new JFrame("Make a choice!");
+    panel = new JPanel();
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.setBackground(Color.white);
+    frame.setVisible(true);
+    frame.add(panel);
+
+
+  // OUTSIDE VOID MAIN FUNTION
+  public static void buttons() {
+    
+    JRadioButton fiveButton = new JRadioButton("5 letter mode (EASY)");
+    //fiveButton.setSelected(true);
+    JRadioButton allButton = new JRadioButton("any number of letters (HARD)");
+
+    //Group the radio buttons.
+    ButtonGroup group = new ButtonGroup();
+    group.add(fiveButton);
+    group.add(allButton);
+
+    panel.add(fiveButton);
+    panel.add(allButton);
+
+    fiveButton.getInputMap().put(KeyStroke.getKeyStroke("A"), "fivePressed");
+    fiveButton.getActionMap().put("fivePressed", new AbstractAction() {
+      public void actionPerformed(ActionEvent e){
+        fiveButtonClicked();
+      }
+    });
+
+    allButton.getInputMap().put(KeyStroke.getKeyStroke("B"), "allPressed");
+    allButton.getActionMap().put("allPressed", new AbstractAction() {
+      public void actionPerformed(ActionEvent e){
+        allButtonClicked();
+      }
+    });
+
+    fiveButton.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        fiveButtonClicked();
+      }
+    });
+    allButton.addActionListener(new ActionListener(){
+      public void actionPerformed(ActionEvent e){
+        allButtonClicked();
+      }
+    });
+  }
+
+  private static void allButtonClicked() {
+    frame.setVisible(false);
+    frame.dispose();
+    new BirdleAlphabet("hard");
+  }
+
+  private static void fiveButtonClicked() {
+    frame.setVisible(false);
+    frame.dispose();
+    new BirdleAlphabet("easy");
+  }

@@ -35,6 +35,7 @@ public class BirdleGame {
     readBirds(pathname, birds);
     readBirds(guessPathname, guessList);
     word = chooseBird();
+    //word = "rhea";
     System.out.println(word);
     System.out.println(word.length());
     GUESSES = word.length() + 1;
@@ -128,8 +129,8 @@ public class BirdleGame {
         tempWord[i] = '.';
       }
     }
-    for (char i : result) { System.out.print(i + " "); }
-    for (char i : tempWord) { System.out.print(i + " "); }
+    //for (char i : result) { System.out.print(i + " "); }
+    //for (char i : tempWord) { System.out.print(i + " "); }
     for (int i = 0; i < tempWord.length; i ++) {
       if (result[i] != 'G') {
         for (int v = 0; v < tempWord.length; v ++) {
@@ -166,7 +167,7 @@ public class BirdleGame {
       //letterData[(int)guess.charAt(i) - 97] = result[i];
     }
     //System.out.println("parsedguess returns "  + resultString);
-    for (int i = 0; i < letterData.length; i ++) {  System.out.println(i + " " + letterData[i]); }
+    //for (int i = 0; i < letterData.length; i ++) {  System.out.println(i + " " + letterData[i]); }
     return resultString;
   }
 

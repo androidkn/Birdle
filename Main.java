@@ -1,84 +1,45 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*; 
+//import java.awt.*;
+//import java.awt.event.*; 
+
+// VIDEO: AROUND 10-15 MINS
 
 class Main {
+
+  private static JFrame frame;
+  
   public static void main(String[] args) {
-    
-    //BirdleGame game = new BirdleGame("easy");
-    //game.guessBird();
-    new BirdleAlphabet("hard");
-    //buttons();
-
-    
+    frame = new JFrame();
+    int option = buttons2();
+    System.out.println(option);
+    if (option == 0) {
+      new BirdleAlphabet("easy");
+    } else {
+      new BirdleAlphabet("hard");
+    }
+    //new BirdleAlphabet("hard");
   }
 
-  public static void buttons() {
-    
-    JRadioButton fiveButton = new JRadioButton("5 letter mode (EASY)");
-    fiveButton.setMnemonic(KeyEvent.VK_B);
-    //fiveButton.setSelected(true);
-
-    JRadioButton allButton = new JRadioButton("any number of letters (HARD)");
-    allButton.setMnemonic(KeyEvent.VK_C);
-
-    //Group the radio buttons.
-    ButtonGroup group = new ButtonGroup();
-    group.add(fiveButton);
-    group.add(allButton);
-
-    JFrame frame = new JFrame("Make a choice!");
-    JPanel panel = new JPanel();
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-    frame.setBackground(Color.white);
-    frame.setVisible(true);
-    panel.add(fiveButton);
-    panel.add(allButton);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.add(panel);
-
-    fiveButton.getInputMap().put(KeyStroke.getKeyStroke("A"), "fivePressed");
-    fiveButton.getActionMap().put("fivePressed", new AbstractAction() {
-      public void actionPerformed(ActionEvent e){
-        frame.dispose();
-        new BirdleAlphabet("easy");
-      }
-    });
-
-    allButton.getInputMap().put(KeyStroke.getKeyStroke("B"), "allPressed");
-    allButton.getActionMap().put("allPressed", new AbstractAction() {
-      public void actionPerformed(ActionEvent e){
-        frame.dispose();
-        new BirdleAlphabet("hard");
-      }
-    });
-
-    //Register a listener for the radio buttons.
-    fiveButton.addActionListener(new ActionListener(){
-      public void actionPerformed(ActionEvent e){
-        frame.dispose();
-        new BirdleAlphabet("easy");
-      }
-    });
-    allButton.addActionListener(new ActionListener(){
-      public void actionPerformed(ActionEvent e){
-        frame.dispose();
-        new BirdleAlphabet("hard");
-      }
-    });
+  public static int buttons2() {
+    Object[] options = {"EASIER", "HARDER"};
+    int n = JOptionPane.showOptionDialog(frame,
+    "Pick the mode of gameplay:\nfive letter birds only (EASIER), or\nany number of letters (HARDER)",
+    "Birdle",
+    JOptionPane.YES_NO_OPTION,
+    JOptionPane.QUESTION_MESSAGE,
+    null,     //do not use a custom Icon
+    options,  //the titles of buttons
+    options[0]); //default button title
+    return n;
   }
-}
+ }
 
 // TO DO
 
 // make game end once all green
 // add message if not valid entry (red letters?)
-// When incorrect and press "delete", everything gets deleted- fix
-// tell jframe to stop being a bitch about screen resizing
+// resize frame to phone screen
 
+// *** fix button system when game starts ***
 
-// FEATURES
-
-// "easy" "medium" "hard" modes
-   // changes # letters in bird chosen
-   // easy = fewer letters ??
+// VIDEO: AROUND 10-15 MINS
