@@ -69,4 +69,5 @@ Out of class (1 hr) - finishing up the code so that it runs perfectly from the c
 06/11/2022 (sat)
 - 30 mins - fixed bug of last guess not changing color on display because of out of bounds error
 - 30 mins - changed game selection jframe to dialog window - now able to choose game mode!!!!
-- 30 mins - fixed bug so that game ends when all correct
+- 1 hr - fixed bug so that game ends when all correct
+- 1 hr - displays word was if you lose the game

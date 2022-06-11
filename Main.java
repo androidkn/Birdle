@@ -32,8 +32,9 @@ class Main {
 
 // TO DO
 
+// bug if word is 8+ letters long - keyboard spacing messed up
 // add message if not valid entry (red letters?)
 // resize frame to phone screen
-// if you don't get it by end, display word
+
 
 // VIDEO: AROUND 10-15 MINS
