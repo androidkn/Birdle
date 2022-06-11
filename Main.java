@@ -39,6 +39,7 @@ class Main {
 // make game end once all green
 // add message if not valid entry (red letters?)
 // resize frame to phone screen
+// if you don't get it by end, display word
 
 // *** fix button system when game starts ***
 

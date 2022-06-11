@@ -10,7 +10,6 @@ public class BirdleGame {
 
   //ATTRIBUTES
   private String word;
-  private final String CHEAT = "divya"; // CHEAT CODE
   private ArrayList<String> birds;
   private ArrayList<String> guessList;
   private Scanner input;
@@ -100,14 +99,9 @@ public class BirdleGame {
       do {
         System.out.println("\nenter guess: ");
         guess = input.next();
-        //cheat code
       } while (guess.length() != word.length() || !validGuess(guess));
       parsed = parseGuess(guess);
-      if (guess.equals(CHEAT)) {
-        System.out.println("Cheat code activated! Word: " + word);
-      } else {
-        System.out.println(parsed);
-      }
+      System.out.println(parsed);
     }
     System.out.println("You guessed the bird!");
   }
@@ -173,9 +167,6 @@ public class BirdleGame {
 
   public boolean validGuess(String guess) {
     boolean valid = true;
-    if (guess.equals(CHEAT)) {
-      System.out.println("Cheat code activated! Word: " + word);
-    }
     if (!guessList.contains(guess.toLowerCase())) {
       System.out.println("not in bird list");
       valid = false;

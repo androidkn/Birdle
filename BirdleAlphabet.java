@@ -48,7 +48,8 @@ public class BirdleAlphabet{
     display.setDisp(guesses, parses);
 
     frame = new JFrame("Birdle " + mode);
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    frame.setSize(600,600);
     frame.setBackground(Color.white);
 
     all = new JPanel();   
@@ -91,19 +92,7 @@ public class BirdleAlphabet{
         }
       }
     });
-    
-    
-    do {
-      //System.out.println("A " + correct);
-      if (!d && !correct) {
-        System.out.println("B " + correct);
-        editDisplay();
-        System.out.println("C " + correct);
-        d = true;
-        System.out.println("D " + correct);
-      }
-    } while (!correct);
-    System.out.println("QUIT\nQUIT\nQUIT\nQUIT\nQUIT");
+    editDisplay();
 	}	
 
   // Returns the keyboard
@@ -184,7 +173,7 @@ public class BirdleAlphabet{
 
   private void enterButton() {
     System.out.println("\nguess is " + guess);
-    if (game.validGuess(guess)) {
+    if (game.validGuess(guess) && !correct) {
       parsedGuess = game.parseGuess(guess);
       System.out.println(parsedGuess);
       if (BirdleGame.isCorrect(parsedGuess)) {
@@ -203,14 +192,14 @@ public class BirdleAlphabet{
   }
 
   private void deleteButton() {
-    if (guess.length() > 0) {
+    if (guess.length() > 0 && !correct) {
       guess = guess.substring(0,guess.length()-1);
     }
     editDisplay();
   }
 
   private void letterButton(String letter) {
-    if (guess.length() < BirdleGame.getLetters()) {
+    if (guess.length() < BirdleGame.getLetters() && !correct) {
       //System.out.print(let);
       guess += letter;
       editDisplay();
@@ -248,6 +237,6 @@ public class BirdleAlphabet{
     alph.revalidate();
     disp.repaint();
     disp.revalidate();
-    //System.out.println("disp " + correct);
+    System.out.println("disp " + correct);
   }
 }

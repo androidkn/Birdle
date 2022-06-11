@@ -11,12 +11,10 @@ public class BirdleDisplay{
   private Color green;
   private Color yellow;
   private Color grey;
-  private Color lightGrey;
   private Color white;
   private Color black;
 
   private Dimension letterD;
-  private Dimension borderD;
   private Font font;
 
   // Constructor
@@ -26,12 +24,10 @@ public class BirdleDisplay{
     green = new Color(108,172,100);
     yellow = new Color(204,180,92);
     grey = new Color(124,124,124);
-    lightGrey = new Color(213,213,220);
     white = new Color(255,255,255);
     black = new Color(0,0,0);
 
     letterD = new Dimension(40,40);
-    borderD = new Dimension(48,48);
     font = new Font("Courier", Font.BOLD, 15);
 
     for (int c = 0; c < disp[0].length; c ++) {
