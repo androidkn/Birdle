@@ -34,7 +34,7 @@ public class BirdleGame {
     readBirds(pathname, birds);
     readBirds(guessPathname, guessList);
     word = chooseBird();
-    word = "xxxxxxx";
+    //word = "xxxxxxx";
     System.out.println(word);
     System.out.println(word.length());
     GUESSES = word.length() + 1;

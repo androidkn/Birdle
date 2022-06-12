@@ -25,7 +25,6 @@ public class BirdleAlphabet{
   private JFrame frame;
   private JTextField reveal;
 
-  private boolean d;
   private boolean correct;
 
   // Constructor
@@ -67,9 +66,13 @@ public class BirdleAlphabet{
     reveal.setBorder(null);
     
     all = new JPanel(); 
+    //Border padding = BorderFactory.createEmptyBorder(10, 10, 10, 10);
+    all.setBorder(BorderFactory.createEmptyBorder(25, 10, 10, 10));
+    
     all.setLayout(new BoxLayout(all, BoxLayout.PAGE_AXIS));
     all.add(disp);
     all.add(reveal);
+    all.add(Box.createRigidArea(new Dimension(10,10)));
     all.add(alph);
     frame.setContentPane(all);
     frame.setVisible(true);
@@ -215,7 +218,6 @@ public class BirdleAlphabet{
     if (guess.length() < BirdleGame.getLetters() && !correct) {
       guess += letter;
       editDisplay();
-      d = false;
     }
   }
 

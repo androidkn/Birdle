@@ -5,15 +5,15 @@ class Main {
   private static JFrame frame;
   
   public static void main(String[] args) {
-    new BirdleAlphabet("hard");
-    /*frame = new JFrame();
+    //new BirdleAlphabet("hard");
+    frame = new JFrame();
     int option = buttons2();
     //System.out.println(option);
     if (option == 0) {
       new BirdleAlphabet("easy");
     } else {
       new BirdleAlphabet("hard");
-    }*/
+    }
   }
 
   public static int buttons2() {
